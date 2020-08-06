@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using Pdb.DomainEvents.Abstractions;
-    using Pdb.DomainEvents.EventDispatching;
+    using Pdb.DomainEvents.EventDispatching.ServiceProvider;
 
     public static class ServiceCollectionExtensions
     {
@@ -20,7 +20,7 @@
                 return services;
             }
 
-            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+            services.AddScoped<IDomainEventDispatcher, ServiceProviderDomainEventDispatcher>();
 
             var assemblies = handlerMarkerAssemblyTypes.Select(e => e.Assembly);
             var handlers = assemblies

@@ -1,4 +1,4 @@
-﻿namespace Pdb.DomainEvents.EventDispatching
+﻿namespace Pdb.DomainEvents.EventDispatching.ServiceProvider
 {
     using System;
     using System.Collections.Generic;
@@ -9,17 +9,22 @@
 
     // https://gist.github.com/jbogard/54d6569e883f63afebc7
     // http://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern/
-    public class DomainEventDispatcher : IDomainEventDispatcher
+    public class ServiceProviderDomainEventDispatcher : IDomainEventDispatcher
     {
         private readonly IServiceProvider _services;
 
-        protected DomainEventDispatcher(IServiceProvider services)
+        public ServiceProviderDomainEventDispatcher(IServiceProvider services)
         {
             _services = services;
         }
 
         public async Task Dispatch(IDomainEvent domainEvent)
         {
+            if (domainEvent == null)
+            {
+                throw new ArgumentNullException(nameof(domainEvent));
+            }
+
             var handlers = GetHandlers(domainEvent);
 
             foreach (var handler in handlers)
@@ -28,16 +33,13 @@
             }
         }
 
-        private IEnumerable<object> GetHandlerServices(Type serviceType) =>
-            _services.GetServices(serviceType);
-
         private IEnumerable<Handler> GetHandlers(IDomainEvent domainEvent)
         {
             // get the type of IDomainEventHandler service to handle the event
             var serviceType = typeof(IDomainEventHandler<>).MakeGenericType(domainEvent.GetType());
 
             // get all the available services for the handler type
-            var handlerServices = GetHandlerServices(serviceType);
+            var handlerServices = _services.GetServices(serviceType);
 
             // get the type of Handler<> to handle the event
             var handlerType = typeof(Handler<>).MakeGenericType(domainEvent.GetType());
