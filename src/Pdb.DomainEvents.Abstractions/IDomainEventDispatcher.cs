@@ -1,7 +1,6 @@
-﻿namespace Pdb.DomainEvents.Extensions.Microsoft.DependencyInjection
+﻿namespace Pdb.DomainEvents.Abstractions
 {
     using System.Threading.Tasks;
-    using Pdb.DomainEvents.Abstractions;
 
     public interface IDomainEventDispatcher
     {

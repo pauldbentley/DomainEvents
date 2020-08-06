@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using Pdb.DomainEvents.Abstractions;
-    using Pdb.DomainEvents.Extensions.Microsoft.DependencyInjection;
+    using Pdb.DomainEvents.EventDispatching;
 
     public static class ServiceCollectionExtensions
     {

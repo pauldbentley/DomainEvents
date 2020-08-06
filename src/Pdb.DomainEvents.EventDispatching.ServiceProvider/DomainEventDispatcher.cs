@@ -1,10 +1,10 @@
-﻿namespace Pdb.DomainEvents.Extensions.Microsoft.DependencyInjection
+﻿namespace Pdb.DomainEvents.EventDispatching
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using global::Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection;
     using Pdb.DomainEvents.Abstractions;
 
     // https://gist.github.com/jbogard/54d6569e883f63afebc7
@@ -13,7 +13,7 @@
     {
         private readonly IServiceProvider _services;
 
-        public DomainEventDispatcher(IServiceProvider services)
+        protected DomainEventDispatcher(IServiceProvider services)
         {
             _services = services;
         }
@@ -28,13 +28,16 @@
             }
         }
 
+        private IEnumerable<object> GetHandlerServices(Type serviceType) =>
+            _services.GetServices(serviceType);
+
         private IEnumerable<Handler> GetHandlers(IDomainEvent domainEvent)
         {
             // get the type of IDomainEventHandler service to handle the event
             var serviceType = typeof(IDomainEventHandler<>).MakeGenericType(domainEvent.GetType());
 
             // get all the available services for the handler type
-            var handlerServices = _services.GetServices(serviceType);
+            var handlerServices = GetHandlerServices(serviceType);
 
             // get the type of Handler<> to handle the event
             var handlerType = typeof(Handler<>).MakeGenericType(domainEvent.GetType());

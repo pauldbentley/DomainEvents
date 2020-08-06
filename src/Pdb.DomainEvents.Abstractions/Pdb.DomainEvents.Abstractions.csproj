@@ -4,7 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Paul Bentley</Authors>
-    <Company>Paul Bentley</Company>
     <Description>Abstractions for domain events</Description>
     <Copyright>Paul Bentley</Copyright>
     <RepositoryUrl>https://github.com/pauldbentley/DomainEvents</RepositoryUrl>
