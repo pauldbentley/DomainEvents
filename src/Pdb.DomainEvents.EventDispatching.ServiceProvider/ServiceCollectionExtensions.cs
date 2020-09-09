@@ -37,6 +37,9 @@
                 }
             }
 
+            ServiceLocator.SetLocatorProvider(services.BuildServiceProvider());
+            DomainEvent.Dispatcher = () => ServiceLocator.Current.GetInstance<IDomainEventDispatcher>();
+
             return services;
         }
     }
