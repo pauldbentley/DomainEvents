@@ -1,4 +1,4 @@
-﻿namespace Pdb.DomainEvents.Abstractions
+﻿namespace Pdb.DomainEvents
 {
     using System;
     using System.Threading.Tasks;
@@ -7,7 +7,7 @@
     {
         public static Func<IDomainEventDispatcher> Dispatcher { get; set; }
 
-        public DateTimeOffset DateOccurred { get; set; } = DateTimeOffset.Now;
+        public DateTimeOffset DateOccurred { get; set; } = DateTime.Now;
 
         public static async Task Raise<TDomainEvent>(TDomainEvent args)
             where TDomainEvent : IDomainEvent

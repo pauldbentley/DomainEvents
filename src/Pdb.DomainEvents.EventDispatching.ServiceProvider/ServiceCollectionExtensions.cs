@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-    using Pdb.DomainEvents.Abstractions;
+    using Pdb.DomainEvents;
     using Pdb.DomainEvents.EventDispatching.ServiceProvider;
 
     public static class ServiceCollectionExtensions

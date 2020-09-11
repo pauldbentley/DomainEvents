@@ -1,4 +1,4 @@
-﻿namespace Pdb.DomainEvents.Abstractions
+﻿namespace Pdb.DomainEvents
 {
     using System;
 

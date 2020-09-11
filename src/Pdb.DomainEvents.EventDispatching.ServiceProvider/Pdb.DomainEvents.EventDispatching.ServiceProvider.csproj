@@ -9,8 +9,7 @@
     <PackageProjectUrl>https://github.com/pauldbentley/DomainEvents</PackageProjectUrl>
     <RepositoryUrl>https://github.com/pauldbentley/DomainEvents</RepositoryUrl>
     <PackageTags>domain events,ddd</PackageTags>
-    <Version>1.1.0</Version>
-    <PackageReleaseNotes>Add support for pre-persistence domain events</PackageReleaseNotes>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +18,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
-    <PackageReference Include="Pdb.DomainEvents.Abstractions" Version="1.1.0" />
+    <PackageReference Include="Pdb.DomainEvents" Version="1.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

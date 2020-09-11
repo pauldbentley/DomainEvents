@@ -4,13 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Paul Bentley</Authors>
-    <Description>Abstractions for domain events</Description>
+    <Description>Domain event models</Description>
     <Copyright>Paul Bentley</Copyright>
     <RepositoryUrl>https://github.com/pauldbentley/DomainEvents</RepositoryUrl>
     <PackageProjectUrl>https://github.com/pauldbentley/DomainEvents</PackageProjectUrl>
     <PackageTags>domain events,ddd</PackageTags>
-    <Version>1.1.0</Version>
-    <PackageReleaseNotes>Adding DomainEvent with static methods to raise pre-persistence domain event</PackageReleaseNotes>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
