@@ -2,6 +2,8 @@
 {
     using System;
     using System.Linq;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
     using Pdb.DomainEvents;
     using Pdb.DomainEvents.EventDispatching.ServiceProvider;
 
@@ -14,13 +16,7 @@
                 throw new ArgumentNullException(nameof(services));
             }
 
-            // Avoid double registration
-            if (services.Any(sd => sd.ServiceType == typeof(IDomainEventDispatcher)))
-            {
-                return services;
-            }
-
-            services.AddScoped<IDomainEventDispatcher, ServiceProviderDomainEventDispatcher>();
+            services.TryAddTransient<IDomainEventDispatcher, ServiceProviderDomainEventDispatcher>();
 
             var assemblies = handlerMarkerAssemblyTypes.Select(e => e.Assembly);
             var handlers = assemblies
@@ -33,14 +29,24 @@
             {
                 foreach (var interfaceType in handler.GetInterfaces())
                 {
-                    services.AddTransient(interfaceType, handler);
+                    services.TryAddTransient(interfaceType, handler);
                 }
             }
 
-            ServiceLocator.SetLocatorProvider(services.BuildServiceProvider());
+            return services;
+        }
+
+        public static IApplicationBuilder UseDomainEventDispatcher(this IApplicationBuilder app)
+        {
+            if (app == null)
+            {
+                throw new ArgumentNullException(nameof(app));
+            }
+
+            ServiceLocator.SetLocatorProvider(app.ApplicationServices);
             DomainEvent.Dispatcher = () => ServiceLocator.Current.GetInstance<IDomainEventDispatcher>();
 
-            return services;
+            return app;
         }
     }
 }
